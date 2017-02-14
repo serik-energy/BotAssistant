@@ -7,6 +7,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
+using Microsoft.Bot.Builder.Dialogs;
+using BotAssistant.Dialogs;
 
 namespace BotAssistant
 {
@@ -108,7 +110,10 @@ namespace BotAssistant
                     }
                     else
                     {
-                        
+                        if (string.IsNullOrEmpty( activity.Text))
+                            activity.Text = string.Empty;
+                        //start dialog
+                        await Conversation.SendAsync(activity, () => new BotDialog());
                     }
                 }
                 else
