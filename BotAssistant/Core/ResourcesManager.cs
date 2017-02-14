@@ -96,6 +96,33 @@
                 /// </summary>
                 public const string Duration = "builtin.alarm.duration";
             }
+            /// <summary>
+            /// remind entities
+            /// </summary>
+            public class Reminder
+            {
+                /// <summary>
+                /// original start date remind entity
+                /// </summary>
+                public const string Original_start_date = "builtin.reminder.original_start_date";
+                /// <summary>
+                /// original start time remind entity
+                /// </summary>
+                public const string Original_start_time = "builtin.reminder.original_start_time";
+                /// <summary>
+                /// text remind entity
+                /// </summary>
+                public const string Reminder_text = "builtin.reminder.reminder_text";
+                /// <summary>
+                /// start date remind entity
+                /// </summary>
+                public const string Start_date = "builtin.reminder.start_date";
+                /// <summary>
+                /// start time remind entity
+                /// </summary>
+                public const string Start_time = "builtin.reminder.start_time";
+            }
+
         }
     }
 }

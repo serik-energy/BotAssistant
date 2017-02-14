@@ -33,6 +33,7 @@ namespace BotAssistant
                 myTimer = new Timer(10000);
                 myTimer.AutoReset = true;
                 myTimer.Elapsed += checkAlarm;
+                myTimer.Elapsed += CheckRemind;
                 myTimer.Start();
             }
         }

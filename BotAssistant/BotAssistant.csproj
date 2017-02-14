@@ -129,6 +129,7 @@
     <Compile Include="Dialogs\AlarmDialog.cs" />
     <Compile Include="Dialogs\BotDialog.cs" />
     <Compile Include="Dialogs\CortanaDialog.cs" />
+    <Compile Include="Dialogs\ReminderDialog.cs" />
     <Compile Include="Dialogs\WeatherDialog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

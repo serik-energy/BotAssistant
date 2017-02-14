@@ -341,7 +341,11 @@ namespace BotAssistant
                 alarmList.Add(userId, alarms);
             }
         }
-        //waiting for alarm
+        /// <summary>
+        /// waiting for alarm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static async void checkAlarm(object sender, ElapsedEventArgs e)
         {
             try
