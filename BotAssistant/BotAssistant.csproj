@@ -124,6 +124,7 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Core\ResourcesManager.cs" />
     <Compile Include="Dialogs\BotDialog.cs" />
+    <Compile Include="Dialogs\CortanaDialog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
