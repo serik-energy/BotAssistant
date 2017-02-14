@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
-using Newtonsoft.Json;
 using Microsoft.Bot.Builder.Dialogs;
 using BotAssistant.Dialogs;
+using BotAssistant.Core;
 
 namespace BotAssistant
 {
@@ -43,9 +42,9 @@ namespace BotAssistant
                     {
                         //write help text
                         string text = "",
-                            format3= "#### {0}\n\n*Exemple:*\n\n* {1}\n\n* {2}\n\n* {3}\n\n---\n\n",
-                            format2= "#### {0}\n\n*Exemple:*\n\n* {1}\n\n* {2}\n\n---\n\n",
-                            format1= "#### {0}\n\n*Exemple:*\n\n* {1}\n\n---\n\n";
+                            format3 = "#### {0}\n\n*Exemple:*\n\n* {1}\n\n* {2}\n\n* {3}\n\n---\n\n",
+                            format2 = "#### {0}\n\n*Exemple:*\n\n* {1}\n\n* {2}\n\n---\n\n",
+                            format1 = "#### {0}\n\n*Exemple:*\n\n* {1}\n\n---\n\n";
                         text += "# Help\n\n## commands:\n\n---\n\n### register\n\n*Exemple:*\n\n* register me, my name is Vika, I am 22 years old, my post is a programmer\n\n* reg me\n\n* register me please\n\n---\n\n";
                         text += "### weather\n\n*Exemple:*\n\n* Is it snowing here in Kyiv?\n\n* What is forecast for next week?\n\n* What is the weather now?\n\n*Note:*\n\nif you are do not know name of city, you can send your location\n\n---\n\n";
                         text += string.Format("### Alarm:\n\n");
@@ -62,7 +61,7 @@ namespace BotAssistant
                             "remind me to go trick or treating with Luca at 4:40pm", "remind me to wash my car at morning");
                         text += string.Format(format2, "Change reminder", "move my wash my car reminder to evening",
                             "move my reminder about school from monday to tuesday");
-                        text += string.Format(format1, "Delete reminder", "delete my picture reminder" );
+                        text += string.Format(format1, "Delete reminder", "delete my picture reminder");
                         text += string.Format(format1, "Find reminder", "show me wash my car reminder");
                         text += string.Format(format1, "Snooze", "snooze wake up reminder");
                         text += string.Format(format2, "Turn off reminder", "dismiss airport pick up reminder", "turn off picture reminder");
@@ -110,8 +109,14 @@ namespace BotAssistant
                     }
                     else
                     {
-                        if (string.IsNullOrEmpty( activity.Text))
+                        if (string.IsNullOrEmpty(activity.Text))
+                        {
                             activity.Text = string.Empty;
+                            if (activity.isHaveTelegramLocation())
+                            {
+                                activity.Text = ResourcesManager.nullGeolocation;
+                            }
+                        }
                         //start dialog
                         await Conversation.SendAsync(activity, () => new BotDialog());
                     }
@@ -119,7 +124,7 @@ namespace BotAssistant
                 else
                 {
                     //handle system message
-                    
+
                     HandleSystemMessage(activity);
                 }
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);

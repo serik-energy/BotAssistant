@@ -122,12 +122,16 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Core\MyExtentions.cs" />
+    <Compile Include="Core\OWeatherMap.cs" />
     <Compile Include="Core\ResourcesManager.cs" />
     <Compile Include="Dialogs\BotDialog.cs" />
     <Compile Include="Dialogs\CortanaDialog.cs" />
+    <Compile Include="Dialogs\WeatherDialog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
