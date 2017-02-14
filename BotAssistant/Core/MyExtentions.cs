@@ -83,5 +83,68 @@ namespace BotAssistant.Core
         {
             return message?.Entities?.Where(ent => ent.Type == "Place")?.FirstOrDefault() != null;
         }
+        /// <summary>
+        /// get duration from <see cref="EntityRecommendation" />
+        /// </summary>
+        /// <param name="duration"></param>
+        /// <returns></returns>
+        public static TimeSpan? GetDuration(this EntityRecommendation duration)
+        {
+            try
+            {
+                TimeSpan? ts = null;
+                int period = 0;
+                string str;// = "PT2H,PT2M,PT2S,P2W,P2D,P2M,P2Y,";
+                if (duration.Resolution.TryGetValue("duration", out str))
+                {
+                    string st1 = str.Remove(0, 2);
+                    st1 = st1.Remove(st1.Count() - 1);
+                    string st2 = str.Remove(0, 1);
+                    st2 = st2.Remove(st2.Count() - 1);
+                    if (str.StartsWith("PT") && int.TryParse(st1, out period))
+                    {
+                        switch (str.Last())
+                        {
+                            case 'H'://hour
+                                ts = TimeSpan.FromHours(period);
+                                break;
+                            case 'M'://minute
+                                ts = TimeSpan.FromMinutes(period);
+                                break;
+                            case 'S'://second
+                                ts = TimeSpan.FromSeconds(period);
+                                break;
+                            default:
+                                return null;
+                        }
+                    }
+                    else if (str.StartsWith("P") && int.TryParse(st2, out period))
+                    {
+                        switch (str.Last())
+                        {
+                            case 'D'://day
+                                ts = TimeSpan.FromDays(period);
+                                break;
+                            case 'W'://week
+                                ts = TimeSpan.FromDays(period * 7);
+                                break;
+                            case 'M'://month
+                                ts = TimeSpan.FromDays(period * 30);
+                                break;
+                            case 'Y'://year
+                                ts = TimeSpan.FromDays(period * 365);
+                                break;
+                            default:
+                                return null;
+                        }
+                    }
+                }
+                return ts;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

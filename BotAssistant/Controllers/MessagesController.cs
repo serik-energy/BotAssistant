@@ -8,6 +8,7 @@ using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
 using BotAssistant.Dialogs;
 using BotAssistant.Core;
+using System.Timers;
 
 namespace BotAssistant
 {
@@ -15,8 +16,26 @@ namespace BotAssistant
     /// Messages controller
     /// </summary>
     [BotAuthentication]
-    public class MessagesController : ApiController
+    public partial class MessagesController : ApiController
     {
+        /// <summary>
+        /// start a timer for sending notification
+        /// </summary>
+        static Timer myTimer;
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        public MessagesController()
+        {
+            if (myTimer == null)
+            {
+                myTimer = new Timer(10000);
+                myTimer.AutoReset = true;
+                myTimer.Elapsed += checkAlarm;
+                myTimer.Start();
+            }
+        }
         /// <summary>
         /// POST: api/Messages
         /// Receive a message from a user and reply to it

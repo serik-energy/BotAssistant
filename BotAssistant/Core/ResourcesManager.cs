@@ -21,6 +21,11 @@
         /// weather service appID
         /// </summary>
         public const string OWMAppID = "33c9da8b3522f74e5313cd76b898cff4";
+        /// <summary>
+        /// name of default alarm
+        /// </summary>
+        public const string DefaultAlarmWhat = "default";
+
 
         /// <summary>
         /// entity types
@@ -64,5 +69,33 @@
         /// current time zone
         /// </summary>
         public const double Timezone = 1;
+        /// <summary>
+        /// stantdart entities
+        /// </summary>
+        public class Entities
+        {
+            /// <summary>
+            /// alarm entities
+            /// </summary>
+            public class Alarm
+            {
+                /// <summary>
+                /// title alarm entity
+                /// </summary>
+                public const string Title = "builtin.alarm.title";
+                /// <summary>
+                /// start time  alarm entity
+                /// </summary>
+                public const string Start_Time = "builtin.alarm.start_time";
+                /// <summary>
+                /// start date alarm entity
+                /// </summary>
+                public const string Start_Date = "builtin.alarm.start_date";
+                /// <summary>
+                /// duration alarm entity
+                /// </summary>
+                public const string Duration = "builtin.alarm.duration";
+            }
+        }
     }
 }
