@@ -38,7 +38,7 @@ namespace BotAssistant.Core
         /// <param name="geo">location</param>
         /// <param name="lang">language</param>
         /// <returns>Json responce from weather service as <see cref="WeatherObject" /></returns>
-        public async Task<WeatherObject> GetWeatherData(GeoCoordinates geo, string lang)
+        public async Task<WeatherObject> GetWeatherData(GeoCoordinates geo, string lang = "en")
         {
             try
             {

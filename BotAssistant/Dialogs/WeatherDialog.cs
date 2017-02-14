@@ -47,13 +47,11 @@ namespace BotAssistant.Dialogs
                 await context.PostAsync("Can`t catch the city(");
                 return;
             }
-            //Todo: Build error messages..
             if (city == ResourcesManager.nullGeolocation)
             {
                 var entity = message.Entities.Where(ent => ent.Type == "Place")?.FirstOrDefault();
                 Place place = entity.GetAs<Place>();
                 geo = place.Geo.ToObject<GeoCoordinates>();
-
             }
 
             DateTime requestedDt = time.ConvertToDateTime();
@@ -75,21 +73,10 @@ namespace BotAssistant.Dialogs
                 string highAt = Math.Round(lastDayWeather.temp.max) + "°";
                 string cityName = "";
 
-
-                switch (lang)
-                {
-                    case "ar":
-                        //cityName = await weatherForecast.city.name.Translate("en", "ar");
-                        break;
-                    default:
-                        cityName = weatherForecast.city.name + ", " + weatherForecast.city.country;
-                        break;
-                }
+                cityName = weatherForecast.city.name + ", " + weatherForecast.city.country;
 
                 replyBase = ResourcesManager.forecastFormat;
 
-                //if (lang == "ar")
-                //replyBase = await ResourcesManager.forecastFormat.Translate("en", "ar");
                 replyBase = string.Format(replyBase, date.ToString("D", new CultureInfo($"pl-PL")), description, cityName, lowAt, highAt);
             }
             else
@@ -103,27 +90,79 @@ namespace BotAssistant.Dialogs
                 string highAt = weather.main.temp_min + "";
                 string cityName = "";
 
-                if (lang == "ar")
-                {
-                    //Country is not in a good format to translate, i.e. SA, US, UAE.. etc.
-                    //cityName = await weather.name.Translate("en", "ar");
-                }
-                else if (lang == "en")
-                {
-                    cityName = weather.name + ", " + weather.sys.country;
-                }
+                cityName = weather.name + ", " + weather.sys.country;
 
                 //Build a reply message
                 replyBase = ResourcesManager.weatherFormat;
 
-                if (lang == "ar")
-                    //replyBase = await ResourcesManager.weatherFormat.Translate("en", "ar");
-                    replyBase = string.Format(replyBase, description, cityName, lowAt, highAt);
+                replyBase = string.Format(replyBase, description, cityName, lowAt, highAt);
             }
 
             string reply = BuildErrorMessage(replyBase);
             await context.PostAsync(reply);
             context.Wait(MessageReceived);
+        }
+        /// <summary>
+        /// process weather condition intent
+        /// </summary>
+        /// <param name="context">dialog context</param>
+        /// <param name="item">message</param>
+        /// <param name="result">result from Luis app</param>
+        /// <returns></returns>
+        [LuisIntent("Condition")]
+        public async Task Condition(IDialogContext context, IAwaitable<IMessageActivity> item, LuisResult result)
+        {
+            Activity message = await item as Activity;
+            OWeatherMap weatherService = new OWeatherMap();
+            string city = null, condition = null;
+            GeoCoordinates geo = null;
+            EntityRecommendation locationEnt, conditionEnt;
+            if (result.TryFindEntityDeep(ResourcesManager.EntityTypes.location.ToString(), out locationEnt))
+            {
+                city = locationEnt.Entity;
+            }
+            if (result.TryFindEntityDeep(ResourcesManager.EntityTypes.condition.ToString(), out conditionEnt))
+            {
+                condition = conditionEnt.Entity;
+            }
+            if (city == null)
+            {
+                await context.PostAsync("Can`t catch the city(");
+                return;
+            }
+            if (city == ResourcesManager.nullGeolocation)
+            {
+                var entity = message.Entities.Where(ent => ent.Type == "Place")?.FirstOrDefault();
+                Place place = entity.GetAs<Place>();
+                geo = place.Geo.ToObject<GeoCoordinates>();
+
+            }
+            string lang = message.Locale;
+            var weatherForecast = city != ResourcesManager.nullGeolocation ?
+                await weatherService.GetWeatherData(city, lang) :
+                await weatherService.GetWeatherData(geo, lang);
+            string description = weatherForecast.weather.FirstOrDefault()?.description;
+            string status = weatherForecast.weather.FirstOrDefault()?.main;
+            string cityName;
+
+            cityName = weatherForecast.name + ", " + weatherForecast.sys.country;
+            #region Language Builder
+            description = description.Replace("nice", "clear|sun|bright|fine|partially cloudy").Replace("good", "clear|sun|bright|fine").Replace("bad", "rain|snow|cloud").Replace("cold", "snow|hail|sleet|blizzard").Replace("day", "").Replace("night", "").Replace("morning", "").Replace("afternoon", "");
+            #endregion
+
+            string Format;
+            string reply;
+            if (condition.ToLower().StartsWith(status.ToLower()) || description.Contains(condition))
+            {
+                Format = ResourcesManager.yesFormat;
+            }
+            else //Condition is false
+            {
+                Format = ResourcesManager.noFormat;
+            }
+            Format = string.Format(Format, description, weatherForecast.name);
+            reply = BuildErrorMessage(Format);
+            await context.PostAsync(reply);
         }
         /// <summary>
         /// building error message
