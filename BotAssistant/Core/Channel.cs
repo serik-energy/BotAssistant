@@ -76,7 +76,9 @@ namespace BotAssistant.Core
             return await connector.Conversations.SendToConversationAsync((Activity)message);
         }
     }
-
+    /// <summary>
+    /// channel for Twilio
+    /// </summary>
     public class ChannelTwilio : Channel
     {
         /// <summary>
@@ -96,7 +98,9 @@ namespace BotAssistant.Core
             return base.sendNewMessageAcync(User, Bot, Text);
         }
     }
-
+    /// <summary>
+    /// channel for Slack
+    /// </summary>
     public class ChannelSlack : Channel
     {
         /// <summary>
@@ -116,7 +120,9 @@ namespace BotAssistant.Core
             return base.sendNewMessageAcync(User, Bot, Text);
         }
     }
-
+    /// <summary>
+    /// channel for GroupMe
+    /// </summary>
     public class ChannelGroupMe : Channel
     {
         /// <summary>
@@ -136,7 +142,9 @@ namespace BotAssistant.Core
             return base.sendNewMessageAcync(User, Bot, Text);
         }
     }
-
+    /// <summary>
+    /// channel for Kik
+    /// </summary>
     public class ChannelKik : Channel
     {
         /// <summary>
@@ -156,7 +164,9 @@ namespace BotAssistant.Core
             return base.sendNewMessageAcync(User, Bot, Text);
         }
     }
-
+    /// <summary>
+    /// channel for Email
+    /// </summary>
     public class ChannelEmail : Channel
     {
         /// <summary>
@@ -165,7 +175,9 @@ namespace BotAssistant.Core
         /// <param name="connector">connector client</param>
         public ChannelEmail(ConnectorClient connector) : base(connector) { }
     }
-
+    /// <summary>
+    /// channel for Skype
+    /// </summary>
     public class ChannelSkype : Channel
     {
         /// <summary>
