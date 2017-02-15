@@ -268,7 +268,6 @@ namespace BotAssistant.Dialogs
         /// title
         /// </summary>
         public string What { get; set; }
-
         /// <summary>
         /// convert to string
         /// </summary>

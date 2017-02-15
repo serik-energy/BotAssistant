@@ -130,6 +130,7 @@
     <Compile Include="Dialogs\BotDialog.cs" />
     <Compile Include="Dialogs\CalendarDialog.cs" />
     <Compile Include="Dialogs\CortanaDialog.cs" />
+    <Compile Include="Dialogs\RegisterDialog.cs" />
     <Compile Include="Dialogs\ReminderDialog.cs" />
     <Compile Include="Dialogs\WeatherDialog.cs" />
     <Compile Include="Global.asax.cs">
