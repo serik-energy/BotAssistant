@@ -34,6 +34,7 @@ namespace BotAssistant
                 myTimer.AutoReset = true;
                 myTimer.Elapsed += checkAlarm;
                 myTimer.Elapsed += CheckRemind;
+                myTimer.Elapsed += CheckCalendar;
                 myTimer.Start();
             }
         }

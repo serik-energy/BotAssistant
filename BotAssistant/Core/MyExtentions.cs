@@ -4,7 +4,6 @@ using Microsoft.Bot.Connector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace BotAssistant.Core
 {
@@ -145,6 +144,33 @@ namespace BotAssistant.Core
             {
                 return null;
             }
+        }
+        //convert TimeSpan to string
+        /// <summary>
+        /// convert <see cref="TimeSpan"/> to <see cref="string"/> 
+        /// </summary>
+        /// <param name="ts"></param>
+        /// <returns></returns>
+        public static string toStr(this TimeSpan ts)
+        {
+            string str = "";
+            if (ts.Days != 0)
+            {
+                str += ts.Days + " days";
+            }
+            if (ts.Hours != 0)
+            {
+                str += ts.Hours.ToString() + (!string.IsNullOrEmpty(str) ? ", " : "") + " hours";
+            }
+            if (ts.Minutes != 0)
+            {
+                str += ts.Minutes.ToString() + (!string.IsNullOrEmpty(str) ? ", " : "") + " minutes";
+            }
+            if (ts.Seconds != 0)
+            {
+                str += ts.Seconds.ToString() + (!string.IsNullOrEmpty(str) ? ", " : "") + " seconds";
+            }
+            return str;
         }
     }
 }

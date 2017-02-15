@@ -289,7 +289,7 @@ namespace BotAssistant.Dialogs
         /// <summary>
         /// constructor
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">message</param>
         public Remind(IActivity message)
         {
             this.ServiceUrl = message.ServiceUrl;

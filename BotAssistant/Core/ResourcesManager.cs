@@ -122,7 +122,64 @@
                 /// </summary>
                 public const string Start_time = "builtin.reminder.start_time";
             }
-
+            /// <summary>
+            /// calendar entities
+            /// </summary>
+            public class Calendar
+            {
+                /// <summary>
+                /// absolute location calendar entity
+                /// </summary>
+                public const string absolute_location = "builtin.calendar.absolute_location";
+                /// <summary>
+                /// title calendar entity
+                /// </summary>
+                public const string title = "builtin.calendar.title";
+                /// <summary>
+                /// start time calendar entity
+                /// </summary>
+                public const string start_time = "builtin.calendar.start_time";
+                /// <summary>
+                /// start date calendar entity
+                /// </summary>
+                public const string start_date = "builtin.calendar.start_date";
+                /// <summary>
+                /// original start time calendar entity
+                /// </summary>
+                public const string original_start_time = "builtin.calendar.original_start_time";
+                /// <summary>
+                /// original start date calendar entity
+                /// </summary>
+                public const string original_start_date = "builtin.calendar.original_start_date";
+                /// <summary>
+                /// move later time calendar entity
+                /// </summary>
+                public const string move_later_time = "builtin.calendar.move_later_time";
+                /// <summary>
+                /// move earlier time calendar entity
+                /// </summary>
+                public const string move_earlier_time = "builtin.calendar.move_earlier_time";
+                /// <summary>
+                /// implicit location calendar entity
+                /// </summary>
+                public const string implicit_location = "builtin.calendar.implicit_location";
+                /// <summary>
+                /// end time calendar entity
+                /// </summary>
+                public const string end_time = "builtin.calendar.end_time";
+                /// <summary>
+                /// end date calendar entity
+                /// </summary>
+                public const string end_date = "builtin.calendar.end_date";
+                /// <summary>
+                /// duration calendar entity
+                /// </summary>
+                public const string duration = "builtin.calendar.duration";
+                /// <summary>
+                /// destination calendar entity
+                /// </summary>
+                public const string destination_calendar = "builtin.calendar.destination_calendar";
+            }
         }
     }
 }
