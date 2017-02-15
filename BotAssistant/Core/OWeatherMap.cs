@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace BotAssistant.Core
 {
-    class OWeatherMap
+    /// <summary>
+    /// weather service
+    /// </summary>
+    public class OWeatherMap
     {
         /// <summary>
         /// Receiving current weather by city
